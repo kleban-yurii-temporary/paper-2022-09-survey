@@ -1,0 +1,29 @@
+---
+title: "Розвиток громадських організацій через призму активності населення"
+output: html_notebook
+---
+
+
+## Огляд даних
+
+
+```{r, include=F}
+library(dplyr)
+survey_data <- readRDS("../survey_data_init.rds")
+survey_headers <- readRDS("../survey_headers.rds")
+```
+
+```{r, include=F}
+get.prop.table <- function(col_data) {
+    df <- data.frame(prop.table(table(col_data))) |>
+      left_join(data.frame(table(col_data)), by = "col_data")
+    colnames(df) <- c("Відповідь", "Частка,%", "Кількість")
+    df
+}
+```
+
+```{r, include = T, echo = T}
+i = 1
+table(get.prop.table(survey_data[,1]))
+plot(survey_data[,1])
+```

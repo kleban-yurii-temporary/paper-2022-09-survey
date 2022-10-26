@@ -1,0 +1,30 @@
+---
+title: "Розвиток громадських організацій через призму активності населення"
+format:
+  docx:
+    toc: true
+    number-sections: true
+    highlight-style: github
+toc-title: Зміст
+---
+
+## Розвиток громадських організацій через призму активності населення
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+```{r, include=F}
+library(dplyr)
+survey_data <- readRDS("../survey_data_init.rds")
+survey_headers <- readRDS("../survey_headers.rds")
+```
+
+```{r, include=F}
+get.prop.table <- function(col_data) {
+    df <- data.frame(prop.table(table(col_data))) |>
+      left_join(data.frame(table(col_data)), by = "col_data")
+    colnames(df) <- c("Відповідь", "Частка,%", "Кількість")
+    df
+}
+i = 1
+get.prop.table(survey_data[,1])
+```
